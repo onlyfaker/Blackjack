@@ -1,5 +1,5 @@
 import random
-
+#NOTES - I CAN EXPANED THE FUNCTIONALITY TO MAKING BETS
 from art import LOGO,RULES
 print(f"Our Game House Rules\n\n{RULES}")
 print(LOGO)
