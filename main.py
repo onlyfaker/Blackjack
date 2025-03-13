@@ -8,7 +8,7 @@ cards = [11,2,3,4,5,6,7,8,9,10,10,10,10]
 #function - random card generator form the list of cards
 def generateCard(cards_list):
     return random.choice(cards_list)
-#function that gives computer new cards wof needed and calculates sum
+#function that gives computer new cards when needed and calculates sum
 def computerTurn(cards_list, pc_cards, pc_sum):
     while pc_sum<=16:
         new_card = generateCard(cards_list)
@@ -41,7 +41,7 @@ while ongoing_game:
         sum_of_computer = sum_of_computer + computer_card
         computer_cards.append(computer_card)
 
-    #if user typed n for playing a Blackjack terminate the program
+    #if user typed n(no) for playing a Blackjack terminate the program
     elif play=='n':
         break
     else:
@@ -55,23 +55,24 @@ while ongoing_game:
     hit_or_stand = True
     while hit_or_stand:
         sum_of_player=21#temporary value for checking
-        if sum_of_player==21:
-            print("BLACKJACK!!!")
+        if sum_of_player==21 or add_cards=='s':
+            if sum_of_player==21:
+            	print("BLACKJACK!!!")
             new_pc_sum = computerTurn(cards, computer_cards, sum_of_computer)
             print(f"Your final hand: {player_cards}, final score: {sum_of_player}")
             print(f"Computer's final hand: {computer_cards}, final score {new_pc_sum}")
+            break
             if sum_of_player==new_pc_sum:
                 print('draw')
             break
-#todo - finsh up hit and stand functionality
+#todo - upadated hit and stand functionality, see if works
         add_cards = input("Type 'h' to get another cards, type 's' to pass: ").lower()
-        if add_cards == 's':
-            break
-
-        new_card = generateCard(cards)
-        player_cards.append(new_card)
-        sum_of_player += new_card
-        print(f"Your cards: {player_cards}, current score: {sum_of_player}")
-        print(f"Computer's first card: {computer_cards}\n")
-
-
+        if add_cards == 'h':
+        	new_card = generateCard(cards)
+        	player_cards.append(new_card)
+        	sum_of_player += new_card
+        	print(f"Your cards: {player_cards}, current score: {sum_of_player}")
+        	print(f"Computer's first card: {computer_cards}\n")
+        else:
+            print('wrong input, try again')
+            
