@@ -67,7 +67,7 @@ while ongoing_game:
             break
 #todo - upadated hit and stand functionality, see if works
         add_cards = input("Type 'h' to get another cards, type 's' to pass: ").lower()
-        if add_cards == 'h':
+        elif add_cards == 'h':
         	new_card = generateCard(cards)
         	player_cards.append(new_card)
         	sum_of_player += new_card
