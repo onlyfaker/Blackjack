@@ -13,12 +13,29 @@ def generateCard(cards_list):
     return random.choice(cards_list)
 
 
+# Function to handle ace conversion for both player and computer
+def handle_ace(cards_list, total_sum):
+    """
+    Check if there are any aces (11) in the cards list and convert them to 1 if needed to avoid busting.
+    Returns the new sum after any necessary conversions.
+    """
+    # Make a copy of the list to avoid modifying the original directly during iteration
+    for i in range(len(cards_list)):
+        # If sum is over 21 and there's an ace (11) in the hand, convert it to 1
+        if total_sum > 21 and cards_list[i] == 11:
+            cards_list[i] = 1
+            total_sum -= 10
+    return total_sum
+
+
 # function that gives computer new cards when needed and calculates sum
 def computerTurn(cards_list, pc_cards, pc_sum):
     while pc_sum <= 16:
         new_card = generateCard(cards_list)
         pc_cards.append(new_card)
         pc_sum += new_card
+        # Handle ace conversion for computer
+        pc_sum = handle_ace(pc_cards, pc_sum)
     return pc_sum
 
 # gameplay
@@ -30,27 +47,32 @@ while ongoing_game:
     sum_of_player = 0
     sum_of_computer = 0
 
-    play = input("Do you want to play Blackjack? Type 'y' or 'n': ").lower()
-    if play == 'y':
-        br = 0
-        # generate 2 cards for player, and add to sum
-        while (br < 2):
-            player_card = generateCard(cards)
-            player_cards.append(player_card)
-            sum_of_player = sum_of_player + player_card
-            br += 1
+    # Continuously ask for input until valid
+    while True:
+        play = input("Do you want to play Blackjack? Type 'y' or 'n': ").lower()
+        if play == 'y':
+            br = 0
+            # generate 2 cards for player, and add to sum
+            while (br < 2):
+                player_card = generateCard(cards)
+                player_cards.append(player_card)
+                sum_of_player = sum_of_player + player_card
+                br += 1
 
             # generate a card for PC and add to sum
-        computer_card = generateCard(cards)
-        sum_of_computer = sum_of_computer + computer_card
-        computer_cards.append(computer_card)
+            computer_card = generateCard(cards)
+            sum_of_computer = sum_of_computer + computer_card
+            computer_cards.append(computer_card)
+            break  # Exit the input loop and continue with the game
+        elif play == 'n':
+            ongoing_game = False
+            break  # Exit the input loop
+        else:
+            print("Wrong input! Please type 'y' or 'n'.")
+            # Loop continues to ask again
 
-        # if user typed n(no) for playing a Blackjack terminate the program
-    elif play == 'n':
-        ongoing_game = False
-        break
-    else:
-        print("wrong input!")
+    # If user chose not to play, break out of the main game loop
+    if not ongoing_game:
         break
 
     print(f"Your cards: {player_cards}, current score: {sum_of_player}")
@@ -74,18 +96,17 @@ while ongoing_game:
                 print('draw')
             break
         add_cards = input("Type 'h' to get another cards, type 's' to pass: ").lower()
-    # todo - make it possible for 11 to become 1 for player and PC!!!!
         if add_cards=='h':
             new_card = generateCard(cards)
             player_cards.append(new_card)
             sum_of_player += new_card
             #switch 11 to 1 when needed
-    #todo - not working, part below in comments
-                # for card in player_cards:
-                #     if card==11:
-                #         if sum_of_player>21:
-                #             sum_of_player-=10
-                #             print(player_cards[card])
+            for card in player_cards:
+                if sum_of_player> 21 and card==11:
+                    index = player_cards.index(card)
+                    player_cards[index]= 1
+                    sum_of_player-=10
+
             print(f"Your cards: {player_cards}, current score: {sum_of_player}")
             print(f"Computer's first card: {computer_cards}\n")
             if sum_of_player>21:
