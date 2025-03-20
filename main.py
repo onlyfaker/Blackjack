@@ -89,11 +89,11 @@ while ongoing_game:
             print(f"Your final hand: {player_cards}, final score: {sum_of_player}")
             print(f"Computer's final hand: {computer_cards}, final score {new_pc_sum}")
             if sum_of_player < new_pc_sum and new_pc_sum<=21:
-                print('you lose')
+                print('You lose! :(')
             elif sum_of_player > new_pc_sum or new_pc_sum>21:
-                print('you win')
+                print('You win!!!! :)')
             elif sum_of_player == new_pc_sum:
-                print('draw')
+                print('Draw')
             break
         add_cards = input("Type 'h' to get another cards, type 's' to pass: ").lower()
         if add_cards=='h':
@@ -112,18 +112,18 @@ while ongoing_game:
             if sum_of_player>21:
                 print(f"Your final hand: {player_cards}, final score: {sum_of_player}")
                 print(f"Computer's final hand: {computer_cards}, final score {sum_of_computer}")
-                print('you went over , you lose')
+                print('You went over , you lose.')
                 break
         elif add_cards=='s':
             new_pc_sum = computerTurn(cards, computer_cards, sum_of_computer)
             print(f"Your final hand: {player_cards}, final score: {sum_of_player}")
             print(f"Computer's final hand: {computer_cards}, final score {new_pc_sum}")
             if sum_of_player < new_pc_sum and new_pc_sum <= 21:
-                print('you lose')
+                print('You lose! :(')
             elif sum_of_player > new_pc_sum or new_pc_sum > 21:
-                print('you win')
+                print('You win')
             elif sum_of_player == new_pc_sum:
-                print('draw')
+                print('Draw')
             break
         else:
-            print('wrong input, try again')
+            print('Wrong input, try again!')
